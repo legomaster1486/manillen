@@ -1,0 +1,15 @@
+body {
+    
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+}
+
+
+#h1 {
+    color: #5b1278;
+}
+
+#h2 {
+    color: #000000;
+}
