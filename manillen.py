@@ -83,15 +83,17 @@ def fourPlayers(playerNames: list):
                     gelegde_kaarten = []
                     gelegde_kaarten_waarden = []
                     for k in range(4):
+                        slagpunten = 0
                         current_player = next_player(numOfPlayers, current_player)
                         kaart = input(f"{players[current_player - 1].name}, leg een kaart:\n")
                         gelegde_kaarten.append((kaart, current_player))
-                    for i in range(len(gelegde_kaarten)):
                         gelegde_kaarten_waarden.append(translate_kaart(gelegde_kaarten[i], kaarten_dict))
+                        slagpunten += int(gelegde_kaarten[i][0][2])
                     print(gelegde_kaarten_waarden)
                     highest_card = gelegde_kaarten.index(max(gelegde_kaarten_waarden))
                     slagWinner = gelegde_kaarten[highest_card][1]
                     print(slagWinner)
+                    print(slagpunten)
 
 
 
