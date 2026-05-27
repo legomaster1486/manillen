@@ -85,7 +85,7 @@ def fourPlayers(playerNames: list):
                     for k in range(4):
                         current_player = next_player(numOfPlayers, current_player)
                         kaart = input(f"{players[current_player - 1].name}, leg een kaart:\n")
-                        gelegde_kaarten.append(kaart)
+                        gelegde_kaarten.append((kaart, current_player))
                     for i in range(len(gelegde_kaarten)):
                         gelegde_kaarten_waarden.append(translate_kaart(gelegde_kaarten[i], kaarten_dict))
                     print(gelegde_kaarten_waarden)
