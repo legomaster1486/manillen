@@ -6,7 +6,7 @@ zwarte_kaarten = ("p70", "p80", "p90", "pJ1", "pQ2", "pK3", "pA4", "pM5", "k70",
 kaarten = (rode_kaarten, zwarte_kaarten)
 
 
-numOfPlayers = int(input("How many players do you have?\n"))
+numOfPlayers = int(input("Hoeveel spelers zijn er?\n"))
 
 class player:
     def __init__(self, name: str, deck: list):
@@ -110,7 +110,7 @@ elif numOfPlayers == 3:
 elif numOfPlayers == 4:
     p = list()
     for i in range(4):
-        p.append(input(f"Name of player {i+1}:\n"))
+        p.append(input(f"Naam van speler {i+1}:\n"))
     fourPlayers(p)
 else:
     pass
