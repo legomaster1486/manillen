@@ -30,7 +30,9 @@ def next_player(numOfPlayers: int, current_player: int):
     return current_player
 
 def fourPlayers(playerNames: list):
+    global players
     players = [player(playerNames[0], []), player(playerNames[1], []), player(playerNames[2], []), player(playerNames[3], [])]
+
     # kaarten geven
     alle_kaarten = list(rode_kaarten + zwarte_kaarten)
     random.shuffle(alle_kaarten)
@@ -82,18 +84,26 @@ def fourPlayers(playerNames: list):
                 for j in range(8):
                     gelegde_kaarten = []
                     gelegde_kaarten_waarden = []
+                    # kaart leggen
                     for k in range(4):
                         slagpunten = 0
                         current_player = next_player(numOfPlayers, current_player)
                         kaart = input(f"{players[current_player - 1].name}, leg een kaart:\n")
+                        players[current_player - 1].deck.remove(kaart)
                         gelegde_kaarten.append((kaart, current_player))
-                        gelegde_kaarten_waarden.append(translate_kaart(gelegde_kaarten[i], kaarten_dict))
-                        slagpunten += int(gelegde_kaarten[i][0][2])
-                    print(gelegde_kaarten_waarden)
-                    highest_card = gelegde_kaarten.index(max(gelegde_kaarten_waarden))
-                    slagWinner = gelegde_kaarten[highest_card][1]
-                    print(slagWinner)
-                    print(slagpunten)
+                    # kaart waarde toegeven voor computer
+                    for k in range(len(gelegde_kaarten)):
+                        if gelegde_kaarten[0][0][0] == gelegde_kaarten[k][0][0] or gelegde_kaarten[k][0][0] == troef:
+                            gelegde_kaarten_waarden.append((translate_kaart(gelegde_kaarten[k][0], kaarten_dict), gelegde_kaarten[k][0]))
+                    # zkn naar hoogste kaart uit slag
+                    for k in gelegde_kaarten_waarden:
+                        if k[0] == max([x[0] for x in gelegde_kaarten_waarden]):
+                            highest_card = k[1]
+                    # aantal ptn in slag berekenen
+                    for k in gelegde_kaarten:
+                        slagpunten += int(k[k][2])
+                    print(highest_card)
+                    print(players)
 
 
 
