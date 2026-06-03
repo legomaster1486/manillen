@@ -49,7 +49,7 @@ def fourPlayers(playerNames: list):
         while score_t1 < max_points and score_t2 < max_points:
             for i in range(4):
                 print(f"{players[i].name} maakt troef")
-                troef = input("Troef p(piekens), h(hartens), k(klavers), r(ruiten), zonder")
+                troef = input("Troef p(piekens), h(hartens), k(klavers), r(ruiten), zonder\n")
                 if troef != "zonder":
                     kaarten_dict = {
                         f"{troef}7": 10,
@@ -89,6 +89,8 @@ def fourPlayers(playerNames: list):
                         slagpunten = 0
                         current_player = next_player(numOfPlayers, current_player)
                         kaart = input(f"{players[current_player - 1].name}, leg een kaart:\n")
+                        while kaart not in players[current_player - 1].deck:
+                            kaart = input(f"{players[current_player - 1].name}, leg een kaart die je hebt:\n")
                         players[current_player - 1].deck.remove(kaart)
                         gelegde_kaarten.append((kaart, current_player))
                     # kaart waarde toegeven voor computer
@@ -101,9 +103,18 @@ def fourPlayers(playerNames: list):
                             highest_card = k[1]
                     # aantal ptn in slag berekenen
                     for k in gelegde_kaarten:
-                        slagpunten += int(k[k][2])
-                    print(highest_card)
+                        slagpunten += int(k[0][2])
                     print(players)
+
+                    for k, l in gelegde_kaarten:
+                        if k == highest_card:
+                            if l % 2 == 0:
+                                score_t2 += slagpunten
+                            else:
+                                score_t1 += slagpunten
+                            break
+
+                    
 
 
 
