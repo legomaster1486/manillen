@@ -23,8 +23,8 @@ def translate_kaart(kaart: str, dictionary: dict):
             return dictionary[key]
 
 def next_player(numOfPlayers: int, current_player: int):
-    if current_player + 1 > numOfPlayers:
-        current_player = 1
+    if current_player + 1 >= numOfPlayers:
+        current_player = 0
     else:
         current_player += 1
     return current_player
@@ -46,6 +46,7 @@ def fourPlayers(playerNames: list):
         score_t1 = 0
         score_t2 = 0
         print(players)
+        current_player = 1
         while score_t1 < max_points and score_t2 < max_points:
             for i in range(4):
                 print(f"{players[i].name} maakt troef")
@@ -80,19 +81,21 @@ def fourPlayers(playerNames: list):
                     pass
                 elif troef == "zonder":
                     pass
-                current_player = 1
+                leggende_speler = i + 1
                 for j in range(8):
                     gelegde_kaarten = []
                     gelegde_kaarten_waarden = []
                     # kaart leggen
+
                     for k in range(4):
                         slagpunten = 0
-                        current_player = next_player(numOfPlayers, current_player)
-                        kaart = input(f"{players[current_player - 1].name}, leg een kaart:\n")
-                        while kaart not in players[current_player - 1].deck:
-                            kaart = input(f"{players[current_player - 1].name}, leg een kaart die je hebt:\n")
-                        players[current_player - 1].deck.remove(kaart)
-                        gelegde_kaarten.append((kaart, current_player))
+                        print(leggende_speler, "begin")
+                        kaart = input(f"{players[leggende_speler].name}, leg een kaart:\n")
+                        while kaart not in players[leggende_speler].deck:
+                            kaart = input(f"{players[leggende_speler].name}, leg een kaart die je hebt:\n")
+                        players[leggende_speler].deck.remove(kaart)
+                        gelegde_kaarten.append((kaart, leggende_speler))
+                        leggende_speler = next_player(numOfPlayers, leggende_speler)
                     # kaart waarde toegeven voor computer
                     for k in range(len(gelegde_kaarten)):
                         if gelegde_kaarten[0][0][0] == gelegde_kaarten[k][0][0] or gelegde_kaarten[k][0][0] == troef:
@@ -108,13 +111,15 @@ def fourPlayers(playerNames: list):
 
                     for k, l in gelegde_kaarten:
                         if k == highest_card:
-                            if l % 2 == 0:
+                            leggende_speler = l
+                            if l % 2 != 0:
                                 score_t2 += slagpunten
                             else:
                                 score_t1 += slagpunten
                             break
 
-                    
+
+
 
 
 
