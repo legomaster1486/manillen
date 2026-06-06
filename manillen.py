@@ -1,12 +1,12 @@
 import random
-
+from tkinter.font import names
 
 rode_kaarten = ("h70", "h80", "h90", "hJ1", "hQ2", "hK3", "hA4", "hM5", "r70", "r80", "r90", "rJ1", "rQ2", "rK3", "rA4", "rM5")
 zwarte_kaarten = ("p70", "p80", "p90", "pJ1", "pQ2", "pK3", "pA4", "pM5", "k70", "k80", "k90", "kJ1", "kQ2", "kK3", "kA4", "kM5")
 kaarten = (rode_kaarten, zwarte_kaarten)
 
 
-numOfPlayers = int(input("Hoeveel spelers zijn er?\n"))
+numOfPlayers = int(input("How many players do you have?\n"))
 
 class player:
     def __init__(self, name: str, deck: list):
@@ -23,16 +23,14 @@ def translate_kaart(kaart: str, dictionary: dict):
             return dictionary[key]
 
 def next_player(numOfPlayers: int, current_player: int):
-    if current_player + 1 >= numOfPlayers:
-        current_player = 0
+    if current_player + 1 > numOfPlayers:
+        current_player = 1
     else:
         current_player += 1
     return current_player
 
 def fourPlayers(playerNames: list):
-    global players
     players = [player(playerNames[0], []), player(playerNames[1], []), player(playerNames[2], []), player(playerNames[3], [])]
-
     # kaarten geven
     alle_kaarten = list(rode_kaarten + zwarte_kaarten)
     random.shuffle(alle_kaarten)
@@ -46,11 +44,10 @@ def fourPlayers(playerNames: list):
         score_t1 = 0
         score_t2 = 0
         print(players)
-        current_player = 1
         while score_t1 < max_points and score_t2 < max_points:
             for i in range(4):
                 print(f"{players[i].name} maakt troef")
-                troef = input("Troef p(piekens), h(hartens), k(klavers), r(ruiten), zonder\n")
+                troef = input("Troef p(piekens), h(hartens), k(klavers), r(ruiten), zonder")
                 if troef != "zonder":
                     kaarten_dict = {
                         f"{troef}7": 10,
@@ -81,44 +78,17 @@ def fourPlayers(playerNames: list):
                     pass
                 elif troef == "zonder":
                     pass
-                leggende_speler = i + 1
+                current_player = 1
                 for j in range(8):
                     gelegde_kaarten = []
                     gelegde_kaarten_waarden = []
-                    # kaart leggen
-
                     for k in range(4):
-                        slagpunten = 0
-                        print(leggende_speler, "begin")
-                        kaart = input(f"{players[leggende_speler].name}, leg een kaart:\n")
-                        while kaart not in players[leggende_speler].deck:
-                            kaart = input(f"{players[leggende_speler].name}, leg een kaart die je hebt:\n")
-                        players[leggende_speler].deck.remove(kaart)
-                        gelegde_kaarten.append((kaart, leggende_speler))
-                        leggende_speler = next_player(numOfPlayers, leggende_speler)
-                    # kaart waarde toegeven voor computer
-                    for k in range(len(gelegde_kaarten)):
-                        if gelegde_kaarten[0][0][0] == gelegde_kaarten[k][0][0] or gelegde_kaarten[k][0][0] == troef:
-                            gelegde_kaarten_waarden.append((translate_kaart(gelegde_kaarten[k][0], kaarten_dict), gelegde_kaarten[k][0]))
-                    # zkn naar hoogste kaart uit slag
-                    for k in gelegde_kaarten_waarden:
-                        if k[0] == max([x[0] for x in gelegde_kaarten_waarden]):
-                            highest_card = k[1]
-                    # aantal ptn in slag berekenen
-                    for k in gelegde_kaarten:
-                        slagpunten += int(k[0][2])
-                    print(players)
-
-                    for k, l in gelegde_kaarten:
-                        if k == highest_card:
-                            leggende_speler = l
-                            if l % 2 != 0:
-                                score_t2 += slagpunten
-                            else:
-                                score_t1 += slagpunten
-                            break
-
-
+                        current_player = next_player(numOfPlayers, current_player)
+                        kaart = input(f"{players[current_player - 1].name}, leg een kaart:\n")
+                        gelegde_kaarten.append(kaart)
+                    for i in range(len(gelegde_kaarten)):
+                        gelegde_kaarten_waarden.append(translate_kaart(gelegde_kaarten[i], kaarten_dict))
+                    print(gelegde_kaarten_waarden)
 
 
 
@@ -140,7 +110,7 @@ elif numOfPlayers == 3:
 elif numOfPlayers == 4:
     p = list()
     for i in range(4):
-        p.append(input(f"Naam van speler {i+1}:\n"))
+        p.append(input(f"Name of player {i+1}:\n"))
     fourPlayers(p)
 else:
     pass

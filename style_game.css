@@ -1,0 +1,42 @@
+body {
+    background-color: #05521a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.vierkant {
+    border-color: #046f21;
+    border-width: 5px 0;
+    border-style: solid;
+    height: 400px;
+    width: 900px;
+    
+
+
+}
+
+#cirkel {
+    border-color: #046f21;
+    border-style: solid;
+    height: 400px;
+    width: 200px;
+}
+
+.links {
+    border-top-left-radius: 200px;
+    border-bottom-left-radius: 200px;
+    border-width: 5px 0 5px 5px
+}
+
+.rechts {
+    border-top-right-radius: 200px;
+    border-bottom-right-radius: 200px;
+    border-width: 5px 5px 5px 0;
+}
+
+.ovaal {
+    display: flex;
+    align-items: center;
+}
