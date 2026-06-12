@@ -3,10 +3,6 @@ const zwarte_kaarten = ["p70", "p80", "p90", "pJ1", "pQ2", "pK3", "pA4", "pM5", 
 let numOfplayers = 0
 let players = []
 let playerNames = ["a", "b", "c", "d"]
-// waarde van selectie lijst verkrijgen
-function aantalSpelers(){
-    numOfplayers = Number(document.querySelector(".aantalspelers").value)
-}
 
 // player object aanmaken
 function player(name, deck, score) {
@@ -59,7 +55,8 @@ function max_points(){
 }
 
 // spel starten
-function start(){
+function start()
+    numOfplayers = Number(document.querySelector(".aantalspelers").value)
     if (numOfplayers == 0){
         document.querySelector(".error").innerHTML = "Kies eerst een waarde!"
     }
