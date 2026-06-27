@@ -1,5 +1,5 @@
 function updateNumOfPlayers() {
-    numOfPlayers = Number(document.querySelector(".aantalspelers").value)
+    let numOfPlayers = Number(document.querySelector(".aantalspelers").value)
     console.log(numOfPlayers)
     if (numOfPlayers > 2) {
         document.querySelector(".team").style.visibility = "visible"
