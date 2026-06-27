@@ -56,7 +56,7 @@ function max_points(){
 
 // spel starten
 function start()
-    numOfplayers = Number(document.querySelector(".aantalspelers").value)
+    let numOfplayers = Number(document.querySelector(".aantalspelers").value)
     if (numOfplayers == 0){
         document.querySelector(".error").innerHTML = "Kies eerst een waarde!"
     }
