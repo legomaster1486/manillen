@@ -96,6 +96,7 @@ body {
     display: flex;
     align-self: center;
     justify-self: center;
+    visibility: hidden;
 }
 
 .instellingen .team span {
